@@ -5,6 +5,8 @@ const dotenv = require('dotenv').config({path:'config.env'})
 const morgan = require('morgan')
 const bodyparser = require('body-parser')
 const cors = require('cors')
+const mongoose = require('./server/database/connection')
+const userRoutes = require('./server/routes/user')
 
 
 app.use(bodyparser.json())
@@ -13,6 +15,8 @@ app.use(cors())
 
 app.use(bodyparser.urlencoded({extended:true}))
 
+
+app.use('/user',userRoutes)
 
 app.get('/',(req,res)=>{
     res.status(200).json({'message':'success'})
