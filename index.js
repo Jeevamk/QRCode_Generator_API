@@ -11,8 +11,9 @@ const userRoutes = require('./server/routes/user')
 
 app.use(bodyparser.json())
 app.use(morgan('tiny'))
+app.use(cors())
 // app.use(cors({ origin: 'http://localhost:5173' }));
-app.options('/user/imageupload', cors());
+// app.options('/user/imageupload', cors());
 
 app.use(bodyparser.urlencoded({extended:true}))
 
