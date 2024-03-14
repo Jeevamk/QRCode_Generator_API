@@ -1,6 +1,12 @@
 const express = require('express')
 const route = express.Router()
 
+const multer = require('multer');
+const upload = multer({ dest : 'assests/images'})
+const cloudinary = require("../services/helper")
+
+
+
 const userController = require('../controller/userController')
 const { logauth } = require('../middleware/auth')
 
@@ -12,7 +18,7 @@ route.post('/',userController.createUser)
 route.post('/login',userController.login)
 
 //imageupload
-route.post('/imageupload', logauth,userController.imageUpload)
+route.post('/imageupload',logauth, upload.array('images',5),userController.imageUpload)
 
 
 module.exports = route;
