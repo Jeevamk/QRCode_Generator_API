@@ -2,6 +2,7 @@ const express = require('express')
 const route = express.Router()
 
 const userController = require('../controller/userController')
+const { logauth } = require('../middleware/auth')
 
 
 //registration
@@ -11,7 +12,7 @@ route.post('/',userController.createUser)
 route.post('/login',userController.login)
 
 //imageupload
-route.post('/imageupload',userController.imageUpload)
+route.post('/imageupload', logauth,userController.imageUpload)
 
 
 module.exports = route;
