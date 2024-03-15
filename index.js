@@ -7,6 +7,7 @@ const bodyparser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('./server/database/connection')
 const userRoutes = require('./server/routes/user')
+const path = require('path')
 
 
 app.use(bodyparser.json())
@@ -16,6 +17,7 @@ app.use(cors())
 
 app.use(bodyparser.urlencoded({extended:true}))
 
+app.use('/images',express.static(path.resolve(__dirname,"assets/images")))
 
 app.use('/user',userRoutes)
 

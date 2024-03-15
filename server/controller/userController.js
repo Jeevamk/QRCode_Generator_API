@@ -9,11 +9,11 @@ const upload = multer({ dest : 'assests/images'})
 const multipleUpload = upload.array('images', 5);
 
 //cloudinary config
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+// cloudinary.config({
+//     cloud_name: process.env.CLOUD_NAME,
+//     api_key: process.env.CLOUDINARY_API_KEY,
+//     api_secret: process.env.CLOUDINARY_API_SECRET,
+//   });
 
 
   
@@ -109,7 +109,7 @@ const getImage = async (req,res) => {
         if(!user){
             return res.status(404).json({ error: "User not found" });
         }
-        res.status(200).json({ userId: user._id, images: user.images });
+        res.status(200).json({ user });
       
     } catch (error) {
         console.error('Error fetching user images:', error);
