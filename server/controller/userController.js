@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cloudinary = require("cloudinary").v2;
 const multer = require('multer');
-const upload = multer({ dest : 'assests/images'})
+const upload = multer({ dest : 'assets/images'})
 const multipleUpload = upload.array('images', 5);
 
 //cloudinary config
