@@ -20,5 +20,7 @@ route.post('/login',userController.login)
 //imageupload
 route.post('/imageupload',logauth, upload.array('images',5),userController.imageUpload)
 
+route.get('/images/:userId',userController.getImage)
+
 
 module.exports = route;

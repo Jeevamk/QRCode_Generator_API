@@ -92,7 +92,7 @@ const imageUpload = async (req,res)=>{
         }
         user.images = user.images.concat(uploadImages);
         await user.save()
-        res.status(200).json({ message: 'Images uploaded successfully', user });
+        res.status(200).json({ userId: user._id, images: user.images });
 
     } catch (error) {
         console.error('Error during image upload:', error);
@@ -100,44 +100,29 @@ const imageUpload = async (req,res)=>{
     }
 }
 
-// const imageUpload = async (req, res) => {
-//     try {
-//         multipleUpload(req, res, async (err) => {
-//             if (err) {
-//                 return res.status(400).json({ error: 'Error uploading files', details: err.message });
-//             }
 
-//             if (!req.files || req.files.length === 0) {
-//                 return res.status(400).json({ error: 'No files uploaded' });
-//             }
+//get image
+const getImage = async (req,res) => {
+    try {
+        const userId = req.params.userId;
+        const user = await userCollection.findById(userId)
+        if(!user){
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json({ userId: user._id, images: user.images });
+      
+    } catch (error) {
+        console.error('Error fetching user images:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 
-//             const uploadImages = [];
-//             for (const file of req.files) {
-//                 const result = await cloudinary.uploader.upload(file.path);
-//                 uploadImages.push(result.secure_url);
-//             }
-
-//             const userId = req.userId;
-//             const user = await userCollection.findById(userId);
-//             if (!user) {
-//                 return res.status(400).json({ error: 'User not found' });
-//             }
-
-//             user.images = user.images.concat(uploadImages);
-//             await user.save();
-
-//             res.status(200).json({ message: 'Images uploaded successfully', uploadImages });
-//         });
-//     } catch (error) {
-//         console.error('Error during image upload:', error);
-//         res.status(500).json({ error: 'Internal server error' });
-//     }
-// };
+}
 
 
 
 module.exports = {
     createUser,
     login,
-    imageUpload
+    imageUpload,
+    getImage
 }
