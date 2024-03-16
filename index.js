@@ -13,6 +13,11 @@ const path = require('path')
 app.use(bodyparser.json())
 app.use(morgan('tiny'))
 app.use(cors())
+// app.use(cors({
+//     origin: 'https://qr-code-generator-ui.vercel.app/',
+//     methods: ['GET', 'POST'], 
+//     allowedHeaders: ['Content-Type', 'auth'], 
+//   }));
 
 
 app.use(bodyparser.urlencoded({extended:true}))

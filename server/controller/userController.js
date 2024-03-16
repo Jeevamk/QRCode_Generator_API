@@ -53,23 +53,28 @@ const login = async (req, res) => {
         const userData = await userCollection.findOne({ email });
 
         if (!userData) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+            return res.status(400).json({ error: 'Invalid email' });
         }
 
-        const passMatch = await bcrypt.compare(password, userData.password);
-        if (!passMatch) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+        try {
+            const passwordMatch = await bcrypt.compare(password, userData.password);
+            if (passwordMatch) {
+                const token = jwt.sign({ userId: userData._id }, "qrcodeposttoken", { expiresIn: '24h' });
+                res.cookie("loginsession", token);
+                res.status(200).json({ token, userId: userData._id });
+            } else {
+                return res.status(400).json({ error: 'Invalid password' });
+            }
+        } catch (error) {
+            console.error('Error comparing passwords:', error);
+            return res.status(500).json({ error: 'Internal server error' });
         }
-
-        const token = jwt.sign({ userId: userData._id }, "qrcodeposttoken", { expiresIn: '24h' });
-        res.cookie("loginsession", token);
-        res.status(200).json({ token,userId: userData._id });
-
     } catch (err) {
         console.error('Error during login:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
 
 
 // imageupload      
