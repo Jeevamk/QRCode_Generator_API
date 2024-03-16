@@ -59,7 +59,7 @@ const login = async (req, res) => {
         try {
             const passwordMatch = await bcrypt.compare(password, userData.password);
             if (passwordMatch) {
-                const token = jwt.sign({ userId: userData._id }, "qrcodeposttoken", { expiresIn: '24h' });
+                const token = jwt.sign({ userId: userData._id }, "qrcodeposttoken");
                 res.cookie("loginsession", token);
                 res.status(200).json({ token, userId: userData._id });
             } else {
