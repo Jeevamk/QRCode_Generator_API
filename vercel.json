@@ -10,7 +10,11 @@
       {
         "src": "/(.*)",
         "dest": "index.js"
-      }
+      },
+      {
+        "src": "uploads/(.*)",
+        "dest": "uploads/$1"
+    }
     ],
     "installCommand": "npm install"
   }
