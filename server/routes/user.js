@@ -2,7 +2,7 @@ const express = require('express')
 const route = express.Router()
 
 const multer = require('multer');
-const upload = multer({ dest : 'assests/images'})
+const upload = multer({ dest : '/tmp'})
 const cloudinary = require("../services/helper")
 
 
