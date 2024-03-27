@@ -22,7 +22,7 @@ app.use(cors())
 
 app.use(bodyparser.urlencoded({extended:true}))
 
-app.use('/images',express.static(path.resolve(__dirname,"assests/images")))
+app.use('/images',express.static(path.resolve(__dirname,"/tmp")))
 
 app.use('/user',userRoutes)
 
